@@ -23,8 +23,9 @@ export default function TriviaGame(props) {
           }
           return {
             question,
-            correctAnswer,
             answers,
+            correctAnswer,
+            selectedAnswer: null,
           }
         });
         setQuestions(questionData);

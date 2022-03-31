@@ -31,7 +31,7 @@
 }
 
 .game--start-button:hover {
-  background-color: darkslateblue;
+  opacity: 0.7;
 }
 
 .loading-container {
@@ -48,12 +48,17 @@
 
 .answer {
   color: #4d5b9e;
-  border: 0.8px solid #4d5b9e;
+  border: 2px solid #4d5b9e;
   border-radius: 12px;
   padding: 4px 12px;
   box-sizing: border-box;
   margin-right: 20px;
   min-width: 100px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.answer:hover {
+  opacity: 0.7;
 }
