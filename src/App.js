@@ -1,13 +1,16 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
 import TitlePage from './components/TitlePage';
+import TriviaGame from "./components/TriviaGame";
 
-function App() {
+export default function App() {
+  const [play, setPlay] = React.useState(false);
+
   return (
     <div className="App">
-      <TitlePage />
+      {play ?
+        <TriviaGame /> :
+        <TitlePage handleClick={() => setPlay(true)} />}
     </div>
   );
 }
-
-export default App;
