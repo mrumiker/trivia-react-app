@@ -10,18 +10,15 @@
   align-items: center;
 }
 
-.title-page-container > div {
-  margin-bottom: 15px;
-}
 
 .game--title {
-  font-weight: 700;
-  font-size: large;
+  margin-bottom: 5px;
 }
 
-.game--description {
-  font-weight: 400;
-  font-size: medium;
+.game--subtitle {
+  margin: 5px 0 15px;
+  font-size: large;
+  font-weight: 600;
 }
 
 .game--start-button {

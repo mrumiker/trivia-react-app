@@ -7,7 +7,7 @@ export default function App() {
   const [play, setPlay] = React.useState(false);
 
   function toggleView() {
-    setPlay(prevPlay => !prevPlay)
+    setPlay(prevPlay => !prevPlay);
   }
 
   return (
