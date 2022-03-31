@@ -13,11 +13,13 @@ export default function TriviaGame(props) {
 
   console.log("Questions =", questions);
 
+  const fixText = text => text.replace(/&quot;/g, '"').replace(/&#039;/g, "'");
+
   const questionsArr = questions.length ?
     questions.map((questionData, i) => (
       <div key={i}>
-        <h2>{questionData.question}</h2>
-        <p>Answer: {questionData.correct_answer}</p>
+        <h2>{fixText(questionData.question)}</h2>
+        <p>Answer: {fixText(questionData.correct_answer)}</p>
         <hr />
       </div>
     )) :
