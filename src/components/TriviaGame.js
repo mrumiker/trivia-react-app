@@ -5,7 +5,7 @@ export default function TriviaGame(props) {
   const [questions, setQuestions] = React.useState([]);
 
   React.useEffect(() => {
-    fetch("https://opentdb.com/api.php?amount=10&category=12&difficulty=medium&type=multiple")
+    fetch(`https://opentdb.com/api.php?amount=5&category=12&difficulty=${props.level}&type=multiple`)
       .then(res => res.json())
       .then(data => setQuestions(data.results))
       .catch(err => console.error(err));
