@@ -5,9 +5,7 @@ export default function TriviaGame(props) {
 
   const [questions, setQuestions] = React.useState([]);
 
-  React.useEffect(() => {
-    getNewQuestions();
-  }, []);
+  React.useEffect(getNewQuestions, []);
 
   function getNewQuestions() {
     fetch(`https://opentdb.com/api.php?amount=5&category=12&difficulty=${props.level}&type=multiple`)
@@ -15,8 +13,7 @@ export default function TriviaGame(props) {
       .then(data => {
         const questionArr = data.results;
         const questionData = questionArr.map(entry => {
-          const question = fixText(entry.question);
-          const correctAnswer = fixText(entry.correct_answer);
+          const [question, correctAnswer] = [fixText(entry.question), fixText(entry.correct_answer)];
           const incorrectAnswers = entry.incorrect_answers.map(answer => fixText(answer));
           const tempAnswers = [correctAnswer, ...incorrectAnswers];
           const answers = [];
