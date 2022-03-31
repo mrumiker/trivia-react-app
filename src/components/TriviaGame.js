@@ -32,7 +32,7 @@ export default function TriviaGame(props) {
       .catch(err => console.error(err));
   }
 
-  const fixText = text => text.replace(/&quot;/g, '"').replace(/&#039;/g, "'");
+  const fixText = text => text.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&");
 
   return (
     questions.length ?
