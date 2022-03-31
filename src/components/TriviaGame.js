@@ -12,7 +12,7 @@ export default function TriviaGame(props) {
       .then(res => res.json())
       .then(data => {
         const questionArr = data.results;
-        const questionData = questionArr.map(entry => {
+        const questionData = questionArr.map((entry, index) => {
           const [question, correctAnswer] = [fixText(entry.question), fixText(entry.correct_answer)];
           const incorrectAnswers = entry.incorrect_answers.map(answer => fixText(answer));
           const tempAnswers = [correctAnswer, ...incorrectAnswers];
@@ -23,9 +23,11 @@ export default function TriviaGame(props) {
           }
           return {
             question,
+            questionId: index,
             answers,
             correctAnswer,
             selectedAnswer: null,
+            setQuestions,
           }
         });
         setQuestions(questionData);
