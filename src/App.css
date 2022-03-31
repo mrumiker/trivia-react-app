@@ -33,3 +33,10 @@
 .game--start-button:hover {
   background-color: darkslateblue;
 }
+
+.loading-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

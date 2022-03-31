@@ -26,11 +26,15 @@ export default function TriviaGame(props) {
     [];
 
   return (
-    <div>
-      <h1>Your Questions</h1>
-      <hr />
-      {questionsArr}
-      <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
-    </div>
+    questions.length ?
+      <div>
+        <h1>Your Questions</h1>
+        <hr />
+        {questionsArr}
+        <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
+      </div> :
+      <div className="loading-container">
+        <h1 className="loading-message">Loading Your Questions...</h1>
+      </div>
   )
 }
