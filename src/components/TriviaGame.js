@@ -1,4 +1,5 @@
 import React from "react";
+import Question from "./Question";
 
 export default function TriviaGame(props) {
 
@@ -36,24 +37,15 @@ export default function TriviaGame(props) {
 
   const fixText = text => text.replace(/&quot;/g, '"').replace(/&#039;/g, "'");
 
-  const questionsArr = questions.length ?
-    questions.map((questionData, i) => (
-      <div key={i}>
-        <h2>{questionData.question}</h2>
-        <p>Answers: {questionData.answers.map((answer, j) => <span key={j}>{answer}</span>)}</p>
-        <hr />
-      </div>
-    )) :
-    [];
-
   return (
     questions.length ?
       <div>
         <h1>Your Questions</h1>
         <hr />
-        {questionsArr}
+        {questions.map((question, i) => <Question key={i} items={question} />)}
         <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
-      </div> :
+      </div>
+      :
       <div className="loading-container">
         <h1 className="loading-message">Loading Your Questions...</h1>
       </div>
