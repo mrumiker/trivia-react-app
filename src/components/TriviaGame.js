@@ -5,21 +5,42 @@ export default function TriviaGame(props) {
   const [questions, setQuestions] = React.useState([]);
 
   React.useEffect(() => {
-    fetch(`https://opentdb.com/api.php?amount=5&category=12&difficulty=${props.level}&type=multiple`)
-      .then(res => res.json())
-      .then(data => setQuestions(data.results))
-      .catch(err => console.error(err));
+    getNewQuestions();
   }, []);
 
-  console.log("Questions =", questions);
+  function getNewQuestions() {
+    fetch(`https://opentdb.com/api.php?amount=5&category=12&difficulty=${props.level}&type=multiple`)
+      .then(res => res.json())
+      .then(data => {
+        const questionArr = data.results;
+        const questionData = questionArr.map(entry => {
+          const question = fixText(entry.question);
+          const correctAnswer = fixText(entry.correct_answer);
+          const incorrectAnswers = entry.incorrect_answers.map(answer => fixText(answer));
+          const tempAnswers = [correctAnswer, ...incorrectAnswers];
+          const answers = [];
+          while (tempAnswers.length) {
+            const randomIndex = Math.floor(Math.random() * tempAnswers.length);
+            answers.push(tempAnswers.splice(randomIndex, 1)[0]);
+          }
+          return {
+            question,
+            correctAnswer,
+            answers,
+          }
+        });
+        setQuestions(questionData);
+      })
+      .catch(err => console.error(err));
+  }
 
   const fixText = text => text.replace(/&quot;/g, '"').replace(/&#039;/g, "'");
 
   const questionsArr = questions.length ?
     questions.map((questionData, i) => (
       <div key={i}>
-        <h2>{fixText(questionData.question)}</h2>
-        <p>Answer: {fixText(questionData.correct_answer)}</p>
+        <h2>{questionData.question}</h2>
+        <p>Answers: {questionData.answers.map((answer, j) => <span key={j}>{answer}</span>)}</p>
         <hr />
       </div>
     )) :
