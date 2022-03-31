@@ -6,7 +6,7 @@ export default function Question(props) {
     <div>
       <h2>{question}</h2>
       <div className="answers-container">
-        {answers.map((answer, i) => <span key={i}>{answer}</span>)}
+        {answers.map((answer, i) => <span key={i} className="answer">{answer}</span>)}
       </div>
       <hr />
     </div>

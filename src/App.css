@@ -43,5 +43,17 @@
 
 .answers-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: start;
+}
+
+.answer {
+  color: #4d5b9e;
+  border: 0.8px solid #4d5b9e;
+  border-radius: 12px;
+  padding: 4px 12px;
+  box-sizing: border-box;
+  margin-right: 20px;
+  min-width: 100px;
+  text-align: center;
+  font-weight: 500;
 }
