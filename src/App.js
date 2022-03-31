@@ -6,11 +6,15 @@ import TriviaGame from "./components/TriviaGame";
 export default function App() {
   const [play, setPlay] = React.useState(false);
 
+  function toggleView() {
+    setPlay(prevPlay => !prevPlay)
+  }
+
   return (
     <div className="App">
       {play ?
-        <TriviaGame /> :
-        <TitlePage handleClick={() => setPlay(true)} />}
+        <TriviaGame handleClick={toggleView} /> :
+        <TitlePage handleClick={toggleView} />}
     </div>
   );
 }
