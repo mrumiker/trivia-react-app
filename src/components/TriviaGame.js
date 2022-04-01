@@ -4,6 +4,7 @@ import Question from "./Question";
 export default function TriviaGame(props) {
 
   const [questions, setQuestions] = React.useState([]);
+  const [gameComplete, setGameComplete] = React.useState(false);
 
   React.useEffect(getNewQuestions, []);
 
@@ -50,6 +51,8 @@ export default function TriviaGame(props) {
 
   const allAnswersChosen = questions.every(question => question.selectedAnswerId !== -1);
 
+  const endGame = () => setGameComplete(true);
+
   return (
     questions.length ?
       <div>
@@ -58,7 +61,7 @@ export default function TriviaGame(props) {
         {questions.map(question => <Question key={question.questionId} items={question} />)}
         <div className="game--button-container">
           <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
-          <button className="game--end-button" onClick={allAnswersChosen && props.handleClick} style={{ opacity: allAnswersChosen ? 1 : 0.5 }}>Check Answers</button>
+          <button className="game--end-button" onClick={allAnswersChosen ? endGame : (() => null)} style={{ opacity: allAnswersChosen ? 1 : 0.5, cursor: allAnswersChosen ? "pointer" : "not-allowed" }}>Check Answers</button>
         </div>
       </div>
       :
