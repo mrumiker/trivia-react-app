@@ -1,7 +1,8 @@
 import React from "react";
 
 export default function Question(props) {
-  const { questionText, answers, questionId, correctAnswerId, selectedAnswerId, selectAnswer } = props.items;
+  const { items, selectAnswer } = props;
+  const { questionText, answers, questionId, selectedAnswerId } = items;
 
   const answerStyles = answerId => {
     if (answerId === selectedAnswerId) {
@@ -17,7 +18,7 @@ export default function Question(props) {
 
   return (
     <div>
-      <h2>{questionText}</h2>
+      <h2 className="game--question">{questionText}</h2>
       <div className="answers-container">
         {answers.map((answerText, answerId) => <span key={answerId} onClick={() => selectAnswer(questionId, answerId)} style={answerStyles(answerId)} className="answer">{answerText}</span>)}
       </div>

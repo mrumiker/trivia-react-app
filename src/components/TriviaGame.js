@@ -28,10 +28,10 @@ export default function TriviaGame(props) {
             answers,
             correctAnswerId: answers.findIndex(answer => answer === correctAnswer),
             selectedAnswerId: -1,
-            selectAnswer,
           }
         });
         setQuestions(questionData);
+        setGameComplete(false);
       })
       .catch(err => console.error(err));
   }
@@ -47,21 +47,27 @@ export default function TriviaGame(props) {
     ]);
   }
 
-  const fixText = text => text.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&");
+  const fixText = text => text.replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&").replace(/&ndash;/g, "-").replace(/&divide;/g, "÷");
 
   const allAnswersChosen = questions.every(question => question.selectedAnswerId !== -1);
 
   const endGame = () => setGameComplete(true);
 
+  const correctAnswers = questions.filter(question => question.selectedAnswerId === question.correctAnswerId);
+
   return (
     questions.length ?
       <div>
-        <h1>Your Questions</h1>
+        <h1 className="game--title">Your Questions</h1>
         <hr />
-        {questions.map(question => <Question key={question.questionId} items={question} />)}
+        {questions.map(question => <Question key={question.questionId} items={question} selectAnswer={selectAnswer} />)}
         <div className="game--button-container">
           <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
-          <button className="game--end-button" onClick={allAnswersChosen ? endGame : (() => null)} style={{ opacity: allAnswersChosen ? 1 : 0.5, cursor: allAnswersChosen ? "pointer" : "not-allowed" }}>Check Answers</button>
+          {gameComplete && <h3 className="game--final-score">{`You Scored ${correctAnswers.length}/5 Correct Answers`}</h3>}
+          {gameComplete ?
+            <button className="game--end-button" onClick={getNewQuestions}>Play Again</button>
+            :
+            <button className="game--end-button" onClick={allAnswersChosen ? endGame : (() => null)} style={{ opacity: allAnswersChosen ? 1 : 0.5, cursor: allAnswersChosen ? "pointer" : "not-allowed" }}>Check Answers</button>}
         </div>
       </div>
       :
