@@ -5,31 +5,30 @@ export default function Question(props) {
   const { questionText, answers, questionId, correctAnswerId, selectedAnswerId } = items;
 
   const answerStyles = answerId => {
-    const styles = {};
+
+    const isSelected = answerId === selectedAnswerId;
+    const isCorrect = answerId === correctAnswerId;
+
+    const styles = {
+      border: "2px solid #4d5b9e",
+      cursor: gameComplete ? "not-allowed" : "pointer",
+    };
+
     if (gameComplete) {
-      if (answerId === correctAnswerId) {
+      if (isCorrect) { //correct answer
         styles.border = "2px solid #94d7a2"
         styles.backgroundColor = "#94d7a2";
       } else {
         styles.opacity = 0.5;
-        if (answerId === selectedAnswerId) {
+        if (isSelected) { //wrong answer
           styles.border = "2px solid #f8bcbc"
           styles.backgroundColor = "#f8bcbc";
-        } else {
-          styles.border = "2px solid #4d5b9e";
         }
       }
-
-
-    } else if (answerId === selectedAnswerId) {
+    } else if (isSelected) {
       styles.border = "2px solid #d6dbf5";
       styles.backgroundColor = "#d6dbf5";
-    } else {
-      styles.border = "2px solid #4d5b9e";
     }
-
-
-    styles.cursor = gameComplete ? "not-allowed" : "pointer";
 
     return styles;
   }
