@@ -60,14 +60,14 @@ export default function TriviaGame(props) {
       <div>
         <h1 className="game--title">Your Questions</h1>
         <hr />
-        {questions.map(question => <Question key={question.questionId} items={question} selectAnswer={selectAnswer} />)}
+        {questions.map(question => <Question key={question.questionId} items={question} selectAnswer={selectAnswer} gameComplete={gameComplete} />)}
         <div className="game--button-container">
           <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
           {gameComplete && <h3 className="game--final-score">{`You Scored ${correctAnswers.length}/5 Correct Answers`}</h3>}
           {gameComplete ?
             <button className="game--end-button" onClick={getNewQuestions}>Play Again</button>
             :
-            <button className="game--end-button" onClick={allAnswersChosen ? endGame : (() => null)} style={{ opacity: allAnswersChosen ? 1 : 0.5, cursor: allAnswersChosen ? "pointer" : "not-allowed" }}>Check Answers</button>}
+            <button className="game--end-button" onClick={allAnswersChosen ? endGame : null} style={{ opacity: allAnswersChosen ? 1 : 0.5, cursor: allAnswersChosen ? "pointer" : "not-allowed" }}>Check Answers</button>}
         </div>
       </div>
       :

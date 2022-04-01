@@ -44,7 +44,8 @@
 }
 
 .game--start-button:hover,
-.game--end-button:hover {
+.game--end-button:hover,
+.answer:hover {
   opacity: 0.7;
 }
 
@@ -73,9 +74,4 @@
   min-width: 100px;
   text-align: center;
   font-weight: 600;
-  cursor: pointer;
-}
-
-.answer:hover {
-  opacity: 0.7;
 }
