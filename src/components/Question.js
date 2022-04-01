@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function Question(props) {
-  const { items, selectAnswer, gameComplete } = props;
+  const { items, selectAnswer, gameOver } = props;
   const { questionText, answers, questionId, correctAnswerId, selectedAnswerId } = items;
 
   const answerStyles = answerId => {
@@ -11,10 +11,10 @@ export default function Question(props) {
 
     const styles = {
       border: "2px solid #4d5b9e",
-      cursor: gameComplete ? "not-allowed" : "pointer",
+      cursor: gameOver ? "not-allowed" : "pointer",
     };
 
-    if (gameComplete) {
+    if (gameOver) {
       if (isCorrect) { //correct answer
         styles.border = "2px solid #94d7a2"
         styles.backgroundColor = "#94d7a2";
@@ -37,7 +37,7 @@ export default function Question(props) {
     <div>
       <h2 className="game--question">{questionText}</h2>
       <div className="answers-container">
-        {answers.map((answerText, answerId) => <span key={answerId} onClick={gameComplete ? null : () => selectAnswer(questionId, answerId)} style={answerStyles(answerId)} className="answer">{answerText}</span>)}
+        {answers.map((answerText, answerId) => <span key={answerId} onClick={gameOver ? null : () => selectAnswer(questionId, answerId)} style={answerStyles(answerId)} className="answer">{answerText}</span>)}
       </div>
       <hr />
     </div>

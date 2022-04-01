@@ -4,7 +4,7 @@ import Question from "./Question";
 export default function TriviaGame(props) {
 
   const [questions, setQuestions] = React.useState([]);
-  const [gameComplete, setGameComplete] = React.useState(false);
+  const [gameOver, setGameOver] = React.useState(false);
 
   React.useEffect(getNewQuestions, []);
 
@@ -31,7 +31,7 @@ export default function TriviaGame(props) {
           }
         });
         setQuestions(questionData);
-        setGameComplete(false);
+        setGameOver(false);
       })
       .catch(err => console.error(err));
   }
@@ -51,7 +51,7 @@ export default function TriviaGame(props) {
 
   const allAnswersChosen = questions.every(question => question.selectedAnswerId !== -1);
 
-  const endGame = () => setGameComplete(true);
+  const endGame = () => setGameOver(true);
 
   const correctAnswers = questions.filter(question => question.selectedAnswerId === question.correctAnswerId);
 
@@ -60,11 +60,11 @@ export default function TriviaGame(props) {
       <div>
         <h1 className="game--title">Your Questions</h1>
         <hr />
-        {questions.map(question => <Question key={question.questionId} items={question} selectAnswer={selectAnswer} gameComplete={gameComplete} />)}
+        {questions.map(question => <Question key={question.questionId} items={question} selectAnswer={selectAnswer} gameOver={gameOver} />)}
         <div className="game--button-container">
           <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
-          {gameComplete && <h3 className="game--final-score">{`You Scored ${correctAnswers.length}/5 Correct Answers`}</h3>}
-          {gameComplete ?
+          {gameOver && <h3 className="game--final-score">{`You Scored ${correctAnswers.length}/5 Correct Answers`}</h3>}
+          {gameOver ?
             <button className="game--end-button" onClick={getNewQuestions}>Play Again</button>
             :
             <button className="game--end-button" onClick={allAnswersChosen ? endGame : null} style={{ opacity: allAnswersChosen ? 1 : 0.5, cursor: allAnswersChosen ? "pointer" : "not-allowed" }}>Check Answers</button>}
