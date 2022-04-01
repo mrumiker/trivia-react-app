@@ -1,5 +1,6 @@
 import React from "react";
 import Question from "./Question";
+import Confetti from "react-confetti";
 
 export default function TriviaGame(props) {
 
@@ -74,6 +75,7 @@ export default function TriviaGame(props) {
   return (
     questions.length ?
       <div>
+        {gameOver && correctAnswers.length === 5 && <Confetti />}
         <h1 className="game--title">{gameTitle(props.level)}</h1>
         <hr />
         {questions.map(question => <Question key={question.questionId} items={question} selectAnswer={selectAnswer} gameOver={gameOver} />)}
