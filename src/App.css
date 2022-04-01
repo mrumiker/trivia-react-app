@@ -21,7 +21,13 @@
   font-weight: 600;
 }
 
-.game--start-button {
+.game--button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.game--start-button,
+.game--end-button {
   color: #fff;
   background: #4d5b9e;
   border: none;

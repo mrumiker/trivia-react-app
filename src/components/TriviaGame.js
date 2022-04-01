@@ -13,7 +13,7 @@ export default function TriviaGame(props) {
       .then(data => {
         const questionArr = data.results;
         const questionData = questionArr.map((entry, index) => {
-          const [question, correctAnswer] = [fixText(entry.question), fixText(entry.correct_answer)];
+          const [questionText, correctAnswer] = [fixText(entry.question), fixText(entry.correct_answer)];
           const incorrectAnswers = entry.incorrect_answers.map(answer => fixText(answer));
           const tempAnswers = [correctAnswer, ...incorrectAnswers];
           const answers = [];
@@ -22,7 +22,7 @@ export default function TriviaGame(props) {
             answers.push(tempAnswers.splice(randomIndex, 1)[0]);
           }
           return {
-            question,
+            questionText,
             questionId: index,
             answers,
             correctAnswerId: answers.findIndex(answer => answer === correctAnswer),
@@ -48,13 +48,18 @@ export default function TriviaGame(props) {
 
   const fixText = text => text.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&");
 
+  const allAnswersChosen = questions.every(question => question.selectedAnswerId !== -1);
+
   return (
     questions.length ?
       <div>
         <h1>Your Questions</h1>
         <hr />
         {questions.map(question => <Question key={question.questionId} items={question} />)}
-        <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
+        <div className="game--button-container">
+          <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
+          <button className="game--end-button" onClick={allAnswersChosen && props.handleClick} style={{ opacity: allAnswersChosen ? 1 : 0.5 }}>Check Answers</button>
+        </div>
       </div>
       :
       <div className="loading-container">
