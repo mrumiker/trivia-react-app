@@ -47,6 +47,17 @@ export default function TriviaGame(props) {
     ]);
   }
 
+  const gameTitle = level => {
+    switch (level) {
+      case "easy":
+        return "Easy Listening 🎷";
+      case "medium":
+        return "Midtempo 🥁";
+      default:
+        return "🎸🔊🚨 Up To 11! 🚨🔊🎸";
+    }
+  }
+
   const fixText = text => text.replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&").replace(/&ndash;/g, "-").replace(/&divide;/g, "÷").replace(/&micro;/g, "µ").replace(/&ntilde;/g, "ñ").replace(/&eacute;/g, "é").replace(/&aacute;/g, "á");
 
   const allAnswersChosen = questions.every(question => question.selectedAnswerId !== -1);
@@ -63,7 +74,7 @@ export default function TriviaGame(props) {
   return (
     questions.length ?
       <div>
-        <h1 className="game--title">Your Questions</h1>
+        <h1 className="game--title">{gameTitle(props.level)}</h1>
         <hr />
         {questions.map(question => <Question key={question.questionId} items={question} selectAnswer={selectAnswer} gameOver={gameOver} />)}
         <div className="game--button-container">
