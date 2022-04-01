@@ -2,20 +2,36 @@ import React from "react";
 
 export default function Question(props) {
   const { items, selectAnswer, gameComplete } = props;
-  const { questionText, answers, questionId, selectedAnswerId } = items;
+  const { questionText, answers, questionId, correctAnswerId, selectedAnswerId } = items;
 
   const answerStyles = answerId => {
-    if (answerId === selectedAnswerId) {
-      return { // styles for selected answer
-        border: "2px solid #d6dbf5",
-        backgroundColor: "#d6dbf5",
-        cursor: gameComplete ? "not-allowed" : "pointer",
+    const styles = {};
+    if (gameComplete) {
+      if (answerId === correctAnswerId) {
+        styles.backgroundColor = "#94d7a2";
+      } else {
+        styles.opacity = 0.5;
+        if (answerId === selectedAnswerId) {
+          styles.backgroundColor = "#f8bcbc";
+        } else {
+          styles.border = "2px solid #4d5b9e"
+        }
       }
+
+
+    } else {
+      if (answerId === selectedAnswerId) {
+        styles.border = "2px solid #d6dbf5";
+        styles.backgroundColor = "#d6dbf5";
+      } else {
+        styles.border = "2px solid #4d5b9e"
+      }
+
     }
-    return {
-      border: "2px solid #4d5b9e",
-      cursor: gameComplete ? "not-allowed" : "pointer",
-    }
+
+    styles.cursor = gameComplete ? "not-allowed" : "pointer";
+
+    return styles;
   }
 
   return (
