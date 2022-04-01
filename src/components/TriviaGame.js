@@ -27,12 +27,23 @@ export default function TriviaGame(props) {
             answers,
             correctAnswerId: answers.findIndex(answer => answer === correctAnswer),
             selectedAnswerId: -1,
-            setQuestions,
+            selectAnswer,
           }
         });
         setQuestions(questionData);
       })
       .catch(err => console.error(err));
+  }
+
+  function selectAnswer(questionId, answerId) {
+    setQuestions(prevQuestionsArr => [
+      ...prevQuestionsArr.slice(0, questionId),
+      {
+        ...prevQuestionsArr[questionId],
+        selectedAnswerId: answerId,
+      },
+      ...prevQuestionsArr.slice(questionId + 1)
+    ]);
   }
 
   const fixText = text => text.replace(/&quot;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&");
