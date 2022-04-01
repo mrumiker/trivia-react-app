@@ -11,6 +11,13 @@
   align-items: center;
 }
 
+.title--button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .game--title {
   margin-bottom: 5px;
 }
@@ -36,11 +43,25 @@
 .game--start-button,
 .game--end-button {
   color: #fff;
+  font-weight: 600;
   background: #4d5b9e;
   border: none;
   border-radius: 15px;
   padding: 8px 40px;
   cursor: pointer;
+  margin: 10px 0;
+}
+
+.game--end-button {
+  font-weight: 500;
+}
+
+.easy {
+  background: green;
+}
+
+.hard {
+  background: red;
 }
 
 .game--start-button:hover,
