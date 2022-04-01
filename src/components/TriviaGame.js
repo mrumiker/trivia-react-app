@@ -25,8 +25,8 @@ export default function TriviaGame(props) {
             question,
             questionId: index,
             answers,
-            correctAnswer,
-            selectedAnswer: null,
+            correctAnswerId: answers.findIndex(answer => answer === correctAnswer),
+            selectedAnswerId: -1,
             setQuestions,
           }
         });
@@ -42,7 +42,7 @@ export default function TriviaGame(props) {
       <div>
         <h1>Your Questions</h1>
         <hr />
-        {questions.map((question, i) => <Question key={i} items={question} />)}
+        {questions.map(question => <Question key={question.questionId} items={question} />)}
         <button className="game--start-button" onClick={props.handleClick}>Go Back</button>
       </div>
       :
