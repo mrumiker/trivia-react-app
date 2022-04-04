@@ -10,6 +10,9 @@ export default function TriviaGame(props) {
   React.useEffect(getNewQuestions, []);
 
   function getNewQuestions() {
+
+    if (gameOver) setGameOver(false);
+
     fetch(`https://opentdb.com/api.php?amount=5&category=12&difficulty=${props.level}&type=multiple`)
       .then(res => res.json())
       .then(data => {
@@ -32,7 +35,6 @@ export default function TriviaGame(props) {
           }
         });
         setQuestions(questionData);
-        if (gameOver) setGameOver(false);
       })
       .catch(err => console.error(err));
   }
@@ -48,6 +50,11 @@ export default function TriviaGame(props) {
     ]);
   }
 
+  function handlePlayAgain() {
+    setQuestions([]);
+    getNewQuestions();
+  }
+
   const gameTitle = level => {
     switch (level) {
       case "easy":
@@ -59,7 +66,7 @@ export default function TriviaGame(props) {
     }
   }
 
-  const fixText = text => text.replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&").replace(/&ndash;/g, "-").replace(/&divide;/g, "÷").replace(/&micro;/g, "µ").replace(/&ntilde;/g, "ñ").replace(/&eacute;/g, "é").replace(/&aacute;/g, "á");
+  const fixText = text => text.replace(/&quot;|&ldquo;|&rdquo;/g, '"').replace(/&#039;/g, "'").replace(/&amp;/g, "&").replace(/&ndash;/g, "-").replace(/&divide;/g, "÷").replace(/&micro;/g, "µ").replace(/&ntilde;/g, "ñ").replace(/&eacute;/g, "é").replace(/&aacute;/g, "á").replace(/&Uuml;/g, "Ü");
 
   const allAnswersChosen = questions.every(question => question.selectedAnswerId !== -1);
 
@@ -83,7 +90,7 @@ export default function TriviaGame(props) {
           <button className="game--end-button" onClick={props.handleClick}>Go Back</button>
           {gameOver && <h3 className="game--final-score">{`You Scored ${correctAnswers.length}/5 Correct Answers`}</h3>}
           {gameOver ?
-            <button className="game--end-button" onClick={getNewQuestions}>Play Again</button>
+            <button className="game--end-button" onClick={handlePlayAgain}>Play Again</button>
             :
             <button className="game--end-button" onClick={allAnswersChosen ? endGame : null} style={checkAnswersButtonStyles}>Check Answers</button>}
         </div>
